@@ -1,0 +1,3 @@
+export class Tombol2 {
+
+}
