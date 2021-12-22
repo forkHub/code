@@ -3,7 +3,8 @@ export class State {
 	public static readonly ST_STMT_DIPILIH: number = 200;
 	public static readonly ST_STMT_EDIT: number = 300;
 	public static readonly ST_PLACEHOLDER_DIPILIH: number = 400;
-	public static readonly ST_PILIH_TYPE_PLACEHOLDER: number = 500;
+	public static readonly ST_PLACEHOLDER_EDIT: number = 500;
+	public static readonly ST_PILIH_TYPE_PLACEHOLDER: number = 600;
 
 	private _aktif: number = 1;
 

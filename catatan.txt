@@ -1,0 +1,13 @@
+macam statement:
+================
+function call()
+function dec()
+assignment
+for
+if
+while
+
+ui:
+===
+pilih var
+pilih function

@@ -15,9 +15,9 @@ class Code {
 	private readonly _stmt: Statement = new Statement();
 	private readonly _state: State = new State();
 	private readonly _menu: Menu = new Menu();
+	private readonly _baris: any[];
 
 	private _placeholderDipilih: IPlaceHolder;
-
 
 	constructor() {
 		console.debug('code constructor');

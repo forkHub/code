@@ -1,7 +1,6 @@
 import { code } from "../Code.js";
 import { IPlaceHolder, IStatement } from "../Interface.js";
 import { State } from "../State.js";
-import { Type } from "../Type.js";
 
 export class PlaceHolder implements IPlaceHolder {
 	private _type: number;
@@ -23,25 +22,35 @@ export class PlaceHolder implements IPlaceHolder {
 
 		stmt.nama = nama;
 		stmt.view.updateView();
+		code.state.aktif = State.ST_PLACEHOLDER_DIPILIH;
+	}
+
+	bisaKlik(): boolean {
+		if (State.ST_STMT_EDIT == code.state.aktif) return true;
+		if (State.ST_PLACEHOLDER_DIPILIH == code.state.aktif) return true;
+
+		return false;
 	}
 
 	klik(e: MouseEvent): void {
-		if (code.state.aktif == State.ST_STMT_EDIT) {
-			e.stopPropagation();
+		if (this.bisaKlik()) {
 
-			//view
-			if (code.placeholderDipilih) {
-				code.placeholderDipilih.el.classList.remove('dipilih');
-			}
-			code.placeholderDipilih = this;
-			this.el.classList.add('dipilih');
+			//validasi stmt dipilih
+			if (code.stmt.aktif == this.refStmt) {
+				e.stopPropagation();
 
-			if (Type.PH_STRING == this._type) {
-				this.gantiNamaFlow();
-			}
-			else {
+				//view
+				if (code.placeholderDipilih) {
+					code.placeholderDipilih.el.classList.remove('dipilih');
+				}
+				code.placeholderDipilih = this;
+				this.el.classList.add('dipilih');
+
 				code.state.aktif = State.ST_PLACEHOLDER_DIPILIH;
 				code.menu.render();
+			}
+			else {
+				console.debug('klik place holder beda stmt, stmt: ' + this._refStmt + '/aktif: ' + code.stmt.aktif);
 			}
 		}
 		else {

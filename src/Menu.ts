@@ -2,6 +2,7 @@ import { code } from "./Code.js";
 import { Tombol } from "./comp/Tombol.js";
 // import { IStatement } from "./Interface.js";
 import { State } from "./State.js";
+import { Type } from "./Type.js";
 // import { Type } from "./Type.js";
 
 export class Menu {
@@ -23,8 +24,16 @@ export class Menu {
 			this.cont.appendChild(this.stmtEditKembali());
 		}
 		else if (State.ST_PLACEHOLDER_DIPILIH == code.state.aktif) {
-			this.cont.appendChild(this.phLiteral());
-			this.cont.appendChild(this.phRef());
+			this.cont.appendChild(this.phEdit());
+		}
+		else if (State.ST_PLACEHOLDER_EDIT) {
+			if (Type.PH_NAMA == code.placeholderDipilih.type) {
+
+			}
+			else {
+				this.cont.appendChild(this.phLiteral());
+				this.cont.appendChild(this.phRef());
+			}
 
 		}
 		else if (State.ST_PILIH_TYPE_PLACEHOLDER == code.state.aktif) {
@@ -67,6 +76,18 @@ export class Menu {
 			this.render();
 		})
 
+	}
+
+	phEdit(): HTMLButtonElement {
+		return Tombol.buat('edit', () => {
+			if (Type.PH_NAMA == code.placeholderDipilih.type) {
+				code.placeholderDipilih.gantiNamaFlow();
+			}
+			else {
+				code.state.aktif == State.ST_PLACEHOLDER_EDIT;
+				this.render();
+			}
+		});
 	}
 
 	phLiteral(): HTMLButtonElement {

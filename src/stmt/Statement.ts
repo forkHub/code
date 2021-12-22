@@ -1,6 +1,7 @@
 import { BaseComponent } from "../comp/BaseComponent.js";
-import { IStatement } from "../Interface.js";
+import { IPlaceHolder, IStatement, IStmtKomp } from "../Interface.js";
 import { Type } from "../Type.js";
+import { PlaceHolder } from "./PlaceHolder.js";
 import { VarDecView } from "./VarDek.js";
 
 export class Statement {
@@ -10,6 +11,39 @@ export class Statement {
 	public get aktif(): number {
 		return this._aktif;
 	}
+
+	script(stmt: string): string {
+		let hasil: string = '';
+
+		//resolve parent
+
+
+		return hasil;
+	}
+
+	render(obj: IStatement): void {
+		let el: HTMLDivElement = document.createElement('div');
+		el.classList.add('stmt');
+
+		obj.komp.forEach((item: IStmtKomp) => {
+			if (item.type == Type.STMT_KOMP_TEKS) {
+				let span: HTMLSpanElement = document.createElement('span');
+				el.appendChild(span);
+				item.el = span;
+			}
+
+			if (item.type == Type.STMT_KOMP_PLACEHOLDER) {
+				let div: HTMLDivElement = document.createElement('div');
+				div.classList.add('placeholder');
+				el.appendChild(div);
+				item.el = div;
+
+				let ph: IPlaceHolder = new PlaceHolder(item.phType, div, obj.id);
+				obj.placeholders.push(ph);
+			}
+		});
+	}
+
 	public set aktif(value: number) {
 		this._aktif = value;
 	}

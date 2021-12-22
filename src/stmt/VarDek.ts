@@ -1,6 +1,6 @@
 import { code } from "../Code.js";
 import { BaseComponent } from "../comp/BaseComponent.js";
-import { IPlaceHolder, IStmtView, IVarDek } from "../Interface.js";
+import { IPlaceHolder, IStatement, IStmtKomp, IStmtView, IVarDek } from "../Interface.js";
 import { State } from "../State.js";
 import { Type } from "../Type.js";
 import { PlaceHolder } from "./PlaceHolder.js";
@@ -18,7 +18,7 @@ export class VarDek implements IVarDek {
 		this._type = Type.STMT_VAR_ISI;
 		this._view.data = this;
 
-		this._placeHolders.push(new PlaceHolder(Type.PH_STRING, (this._view as VarDecView).namaTbl, this._id));
+		this._placeHolders.push(new PlaceHolder(Type.PH_NAMA, (this._view as VarDecView).namaTbl, this._id));
 
 		this._view.elHtml.onclick = (e: MouseEvent) => {
 			e.stopPropagation();
@@ -33,14 +33,26 @@ export class VarDek implements IVarDek {
 					e.classList.remove('dipilih');
 				});
 
+				//update view place holder
+				document.body.querySelectorAll('div.placeholder').forEach((e: Element) => {
+					e.classList.remove('dipilih');
+				})
+				code.placeholderDipilih = null;
+
 				this._view.elHtml.classList.add('dipilih');
 			}
 		}
 	}
+	type: number;
+	kembali?: number;
+	stmts?: IStatement[];
+	komp?: IStmtKomp[];
+	placeholders?: IPlaceHolder[];
 
 	stateBisaDiKlik(): boolean {
 		if (State.ST_AWAL == code.state.aktif) return true;
 		if (State.ST_STMT_DIPILIH == code.state.aktif) return true;
+		if (State.ST_STMT_EDIT == code.state.aktif) return true;
 		if (State.ST_PLACEHOLDER_DIPILIH == code.state.aktif) return true;
 		if (State.ST_PILIH_TYPE_PLACEHOLDER == code.state.aktif) return true;
 
@@ -57,7 +69,7 @@ export class VarDek implements IVarDek {
 		return this._placeHolders;
 	}
 
-	public get type(): number {
+	public get typeStmt(): number {
 		return this._type;
 	}
 	public get id(): number {
