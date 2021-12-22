@@ -16,6 +16,11 @@ export class PlaceHolder implements IPlaceHolder {
 		el.onclick = (e: MouseEvent) => { this.klik(e); }
 	}
 
+	typePh: number;
+	value?: string;
+	id: number;
+	induk?: number;
+
 	gantiNamaFlow(): void {
 		let stmt: IStatement = code.stmt.getById(this._refStmt);
 		let nama: string = window.prompt('nama', stmt.nama);
@@ -33,29 +38,30 @@ export class PlaceHolder implements IPlaceHolder {
 	}
 
 	klik(e: MouseEvent): void {
-		if (this.bisaKlik()) {
+		e;
+		// if (this.bisaKlik()) {
 
-			//validasi stmt dipilih
-			if (code.stmt.aktif == this.refStmt) {
-				e.stopPropagation();
+		// 	//validasi stmt dipilih
+		// 	if (code.stmt.aktif == this.refStmt) {
+		// 		e.stopPropagation();
 
-				//view
-				if (code.placeholderDipilih) {
-					code.placeholderDipilih.el.classList.remove('dipilih');
-				}
-				code.placeholderDipilih = this;
-				this.el.classList.add('dipilih');
+		// 		//view
+		// 		if (code.placeholderDipilih) {
+		// 			code.placeholderDipilih.el.classList.remove('dipilih');
+		// 		}
+		// 		code.placeholderDipilih = this;
+		// 		this.el.classList.add('dipilih');
 
-				code.state.aktif = State.ST_PLACEHOLDER_DIPILIH;
-				code.menu.render();
-			}
-			else {
-				console.debug('klik place holder beda stmt, stmt: ' + this._refStmt + '/aktif: ' + code.stmt.aktif);
-			}
-		}
-		else {
-			console.debug('placeholder click failed, state: ' + code.state.aktif);
-		}
+		// 		code.state.aktif = State.ST_PLACEHOLDER_DIPILIH;
+		// 		code.menu.render();
+		// 	}
+		// 	else {
+		// 		console.debug('klik place holder beda stmt, stmt: ' + this._refStmt + '/aktif: ' + code.stmt.aktif);
+		// 	}
+		// }
+		// else {
+		// 	console.debug('placeholder click failed, state: ' + code.state.aktif);
+		// }
 	}
 
 	init(): void {

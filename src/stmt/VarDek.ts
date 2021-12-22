@@ -12,6 +12,14 @@ export class VarDek implements IVarDek {
 	private _type: number;
 	private readonly _placeHolders: IPlaceHolder[] = [];
 
+	//TODO
+	induk: number;
+	type: number;
+	kembali?: number;
+	stmts?: IStatement[];
+	komp?: IStmtKomp[];
+	placeholders?: IPlaceHolder[];
+
 	constructor() {
 		this._id = code.id.id;
 		this._view = new VarDecView();
@@ -37,17 +45,12 @@ export class VarDek implements IVarDek {
 				document.body.querySelectorAll('div.placeholder').forEach((e: Element) => {
 					e.classList.remove('dipilih');
 				})
-				code.placeholderDipilih = null;
+				// code.placeholderDipilih = null;
 
 				this._view.elHtml.classList.add('dipilih');
 			}
 		}
 	}
-	type: number;
-	kembali?: number;
-	stmts?: IStatement[];
-	komp?: IStmtKomp[];
-	placeholders?: IPlaceHolder[];
 
 	stateBisaDiKlik(): boolean {
 		if (State.ST_AWAL == code.state.aktif) return true;

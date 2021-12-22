@@ -1,19 +1,28 @@
 import { code } from "./Code.js";
 import { Tombol } from "./comp/Tombol.js";
-// import { IStatement } from "./Interface.js";
 import { State } from "./State.js";
-import { Type } from "./Type.js";
-// import { Type } from "./Type.js";
 
 export class Menu {
 	private _cont: HTMLDivElement;
+
+	render2(tombol: HTMLButtonElement[]): void {
+		console.debug('render, state: ' + code.state.aktif);
+		this._cont.innerHTML = '';
+
+		tombol.forEach((tombol: HTMLButtonElement) => {
+			this._cont.appendChild(tombol);
+		})
+	}
 
 	render(): void {
 		console.debug('render, state: ' + code.state.aktif);
 		this._cont.innerHTML = '';
 
 		if (State.ST_AWAL == code.state.aktif) {
-			this._cont.appendChild(this.stmtBuat());
+			// this._cont.appendChild(this.stmtBuat());
+		}
+		else if (State.ST_MODUL_DIPILIH == code.state.aktif) {
+			//this.cont.appendChild();
 		}
 		else if (State.ST_STMT_DIPILIH == code.state.aktif) {
 			this.cont.appendChild(this.stmtBuat());
@@ -27,13 +36,13 @@ export class Menu {
 			this.cont.appendChild(this.phEdit());
 		}
 		else if (State.ST_PLACEHOLDER_EDIT) {
-			if (Type.PH_NAMA == code.placeholderDipilih.type) {
+			// if (Type.PH_NAMA == code.placeholderDipilih.type) {
 
-			}
-			else {
-				this.cont.appendChild(this.phLiteral());
-				this.cont.appendChild(this.phRef());
-			}
+			// }
+			// else {
+			// 	this.cont.appendChild(this.phLiteral());
+			// 	this.cont.appendChild(this.phRef());
+			// }
 
 		}
 		else if (State.ST_PILIH_TYPE_PLACEHOLDER == code.state.aktif) {
@@ -42,7 +51,6 @@ export class Menu {
 
 			//ref
 		}
-
 	}
 
 	stmtBuat(): HTMLButtonElement {
@@ -80,13 +88,7 @@ export class Menu {
 
 	phEdit(): HTMLButtonElement {
 		return Tombol.buat('edit', () => {
-			if (Type.PH_NAMA == code.placeholderDipilih.type) {
-				code.placeholderDipilih.gantiNamaFlow();
-			}
-			else {
-				code.state.aktif == State.ST_PLACEHOLDER_EDIT;
-				this.render();
-			}
+
 		});
 	}
 

@@ -1,12 +1,9 @@
 import { DaftarStatement } from "./DaftarStatement.js";
 import { Env } from "./Env.js";
 import { Id } from "./Id.js";
-import { IPlaceHolder } from "./Interface.js";
 import { Menu } from "./Menu.js";
 import { State } from "./State.js";
-// import { PlaceHolder } from "./stmt/PlaceHolder.js";
 import { Statement } from "./stmt/Statement.js";
-import { VarDek } from "./stmt/VarDek.js";
 
 class Code {
 	private readonly _halDaftarStatement: DaftarStatement = new DaftarStatement();
@@ -15,9 +12,8 @@ class Code {
 	private readonly _stmt: Statement = new Statement();
 	private readonly _state: State = new State();
 	private readonly _menu: Menu = new Menu();
-	private readonly _baris: any[];
 
-	private _placeholderDipilih: IPlaceHolder;
+	private _elAktif: number = 0;
 
 	constructor() {
 		console.debug('code constructor');
@@ -31,14 +27,6 @@ class Code {
 	}
 
 	data(): void {
-		this._stmt.sisip(new VarDek());
-	}
-
-	public get placeholderDipilih(): IPlaceHolder {
-		return this._placeholderDipilih;
-	}
-	public set placeholderDipilih(value: IPlaceHolder) {
-		this._placeholderDipilih = value;
 	}
 
 	public get state(): State {
@@ -65,6 +53,14 @@ class Code {
 		return this._halDaftarStatement;
 	}
 
+	public get elAktif(): number {
+		return this._elAktif;
+	}
+	public set elAktif(value: number) {
+		this._elAktif = value;
+	}
+
+
 }
 
 export var code: Code;
@@ -72,7 +68,6 @@ window.onload = () => {
 	console.debug('onload:');
 	code = new Code();
 	code.init();
-	console.log('code: ' + code);
 }
 
 window.onclick = () => {

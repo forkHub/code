@@ -1,22 +1,22 @@
 import { BaseComponent } from "./comp/BaseComponent.js";
+import { ModulView } from "./ModulView.js";
 
-export interface IStatement {
-	id: number;
-	type: number;
-	view: IStmtView
+export interface IStatement extends IEl {
+	view?: IStmtView		//dep
 	typeStmt: number;
-	nama?: string;
-	kembali?: number;	//kembalian type
-	stmts?: IStatement[]; //child
+	nama?: string;			//dep diganti placeholder
+	kembali?: number;		//kembalian type
+	stmts?: IStatement[]; 	//child
 	komp?: IStmtKomp[];
+	el?: HTMLElement;
 	placeholders?: IPlaceHolder[]; //
 }
 
-export interface IPlaceHolder {
-	gantiNamaFlow?: () => void;
-	refStmt: number;
-	el: HTMLElement;
-	type: number;
+export interface IPlaceHolder extends IEl {
+	gantiNamaFlow?: () => void;	//dep
+	refStmt?: number;			//auto
+	el?: HTMLElement;			//auto
+	typePh: number;
 	value?: string;
 }
 
@@ -34,16 +34,38 @@ export interface IVarDek extends IStatement {
 	nama: string;
 }
 
-export interface IStmtKomp {
-	id: number;
-	type: number;
+export interface IStmtKomp extends IEl {
 	el: HTMLElement;
 	value: string;
 	ref: number;
+	kompType: number;
 	phType: number;
 }
 
-export interface IBaris {
+export interface IEl {
 	id: number;
 	type: number;
+	induk?: number;
+}
+
+export interface IModul extends IEl {
+	nama: string;
+	el?: ModulView;
+}
+
+export interface IFuncDec extends IEl {
+	nama: string;
+	params: IFuncDec[];
+	view: BaseComponent;
+}
+
+export interface IFuncParam extends IEl {
+	nama: string
+	type: number;
+	view: BaseComponent;
+}
+
+export interface IFuncCall extends IEl {
+	view: BaseComponent;
+	funcId: number;
 }

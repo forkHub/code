@@ -11,3 +11,39 @@ ui:
 ===
 pilih var
 pilih function
+
+
+action:
+=======
+modul
+    = add modul
+    = hapus modul
+    = add function
+        = nama
+        = parameter
+            = type
+                = string
+                = number
+                = any
+        = return
+            = type
+    = add variable
+        = nama
+        = type
+    = add statement
+        = pilih statement dialog 
+            = pilih function
+                = set parameter dialog
+            = control flow
+                = for
+                    = placeholder
+                        = variable
+                        = start
+                        = end
+                        = step
+                = if
+                    = placeholder
+                        = condition (expression)
+                = while
+                    = condition (expression)
+

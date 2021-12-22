@@ -2,10 +2,10 @@ import { code } from "./Code.js";
 import { BaseComponent } from "./comp/BaseComponent.js";
 // import { Tombol } from "./comp/Tombol.js";
 import { IStatement } from "./Interface.js";
-import { PilihStatementDlg } from "./PilihStatement.js";
 // import { State } from "./State.js";
 import { Type } from "./Type.js";
 import { VarDek } from "./stmt/VarDek.js";
+import { PilihStatementDlg } from "./PilihStatementdLG.js";
 
 export class DaftarStatement extends BaseComponent {
 	private readonly _pilih: PilihStatementDlg = new PilihStatementDlg();
