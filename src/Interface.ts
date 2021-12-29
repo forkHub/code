@@ -50,7 +50,10 @@ export interface IEl {
 
 export interface IModul extends IEl {
 	nama: string;
+	readonly?: boolean;
+	sub?: IModul[];
 	el?: ModulView;
+	lipat?: boolean;
 }
 
 export interface IFuncDec extends IEl {

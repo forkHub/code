@@ -19,6 +19,8 @@ export class Modul {
                 return this._list[i];
         }
 
+        console.debug('modul not found');
+        console.debug(this._list);
         return null;
     }
 
@@ -31,7 +33,7 @@ export class Modul {
         }
     }
 
-    getIdx(id: number): number {
+    private getIdx(id: number): number {
         for (let i: number = 0; i < this._list.length; i++) {
             if (this._list[i].id == id)
                 return i;
@@ -40,18 +42,12 @@ export class Modul {
         return -1;
     }
 
-    // insert(modulDiInsert: IModul, modulParent: IModul, idxModulDipilih: number) {
-    //     let idx: number = this.getIdx(idxModulDipilih);
-    //     this._list.splice(idx, 0, modulDiInsert);
-    //     this.renderSub(modulParent);
-    // }
-
-    renderModulView(modul: IModul): void {
+    private renderModulView(modul: IModul): void {
         modul.el = new ModulView(modul.id);
         modul.el.nama.innerText = modul.nama;
     }
 
-    getSub(modul: IModul): IModul[] {
+    private getSub(modul: IModul): IModul[] {
         let hasil: IModul[] = [];
 
         this._list.forEach((item: IModul) => {
@@ -65,7 +61,7 @@ export class Modul {
         return hasil;
     }
 
-    renderSub(modul: IModul): void {
+    private renderSub(modul: IModul): void {
         let sub: IModul[] = this.getSub(modul);
 
         sub.forEach((sub: IModul) => {
@@ -74,18 +70,21 @@ export class Modul {
         });
     }
 
-    tombolDipilih(modulDipilihid: number): HTMLButtonElement[] {
+    private tombolDipilih(modulDipilihid: number): HTMLButtonElement[] {
         let hasil: HTMLButtonElement[] = [];
         let modulInduk: IModul = this.getById(modulDipilihid);
 
+        console.debug('tombol dipilih, id: ' + modulDipilihid);
+
         hasil.push(Tombol.buat('+ modul', () => {
             let nama: string = '';
-            let modulBaru: IModul;
+            // let modulBaru: IModul;
+
+            console.debug('+ modul, modulDipilihId: ' + modulDipilihid + '/modulInduk: ' + modulInduk);
 
             nama = window.prompt('nama modul:');
-            modulBaru = this.buat(nama, modulInduk.id);
-            this._list.push(modulBaru);
-            this.renderSub(modulInduk);
+            this.buatFlow(nama, modulInduk.id);
+
 
         }));
 
@@ -108,26 +107,11 @@ export class Modul {
         return hasil;
     }
 
-    buat(nama: string, indukId: number): IModul {
-        let modulBaru: IModul;
-
-        console.debug('buat modul');
-
-        modulBaru = {
-            id: code.id.id,
-            nama: nama,
-            type: Type.TY_MODUL,
-            induk: indukId,
-            sub: [],
-            readonly: false
-        }
-
-        this.renderModulView(modulBaru);
-
+    private modulEvent(modulBaru: IModul): void {
         modulBaru.el.elHtml.onclick = (e: MouseEvent) => {
             e.stopPropagation();
             if (code.state.aktif == State.ST_AWAL || (code.state.aktif == State.ST_MODUL_DIPILIH)) {
-                console.debug('modul klik');
+                console.debug('modul klik, id: ' + modulBaru.id);
 
                 document.body.querySelectorAll('div.modul').forEach((el: Element) => {
                     el.classList.remove('dipilih');
@@ -143,6 +127,25 @@ export class Modul {
             }
         }
 
+    }
+
+    buatFlow(nama: string, indukId: number): IModul {
+        let modulBaru: IModul;
+
+        console.debug('buat modul');
+        modulBaru = {
+            id: code.id.id,
+            nama: nama,
+            type: Type.TY_MODUL,
+            induk: indukId,
+            sub: [],
+            readonly: false
+        }
+
+        this._list.push(modulBaru);
+        this.renderModulView(modulBaru);
+        this.modulEvent(modulBaru);
+        this.renderSub(this.getById(indukId));
         return modulBaru;
     }
 

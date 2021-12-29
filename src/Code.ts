@@ -1,17 +1,20 @@
-import { DaftarStatement } from "./DaftarStatement.js";
+import { HalDepan } from "./HalDepan.js";
 import { Env } from "./Env.js";
 import { Id } from "./Id.js";
+import { IModul } from "./Interface.js";
 import { Menu } from "./Menu.js";
+import { Modul } from "./Modul.js";
 import { State } from "./State.js";
 import { Statement } from "./stmt/Statement.js";
 
 class Code {
-	private readonly _halDaftarStatement: DaftarStatement = new DaftarStatement();
+	private readonly _halDaftarStatement: HalDepan = new HalDepan();
 	private readonly _env: Env = new Env();
 	private readonly _id: Id = new Id();
 	private readonly _stmt: Statement = new Statement();
 	private readonly _state: State = new State();
 	private readonly _menu: Menu = new Menu();
+	private readonly _modul: Modul = new Modul();
 
 	private _elAktif: number = 0;
 
@@ -27,6 +30,15 @@ class Code {
 	}
 
 	data(): void {
+		console.debug('data');
+		let utama: IModul = this._modul.buatFlow("utama", 0);
+		utama.readonly = true;
+		utama.el.attach(this._halDaftarStatement.cont);
+		console.debug(utama.el);
+	}
+
+	public get modul(): Modul {
+		return this._modul;
 	}
 
 	public get state(): State {
@@ -49,7 +61,7 @@ class Code {
 		return this._menu;
 	}
 
-	public get halDaftarStatement(): DaftarStatement {
+	public get halDaftarStatement(): HalDepan {
 		return this._halDaftarStatement;
 	}
 

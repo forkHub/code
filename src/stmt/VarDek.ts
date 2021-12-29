@@ -34,7 +34,7 @@ export class VarDek implements IVarDek {
 				console.debug('klik element, id: ' + this.id);
 				code.stmt.aktif = this.id;
 				code.state.aktif = State.ST_STMT_DIPILIH;
-				code.menu.render();
+				// code.menu.render();
 
 				//update view
 				document.body.querySelectorAll('div.stmt').forEach((e: Element) => {

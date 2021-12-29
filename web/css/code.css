@@ -3,6 +3,29 @@ button {
 	min-width: 48px;
 }
 
+div.modul div.nama {
+	user-select: none;
+}
+
+div.modul div.modul-cont {
+	margin-left: 8px;
+}
+
+div.modul div.modul-cont.isi {
+	border: 1px solid;
+	/* min-height: 16px; */
+}
+
+div.modul div.var-cont.isi {
+	border: 1px solid;
+	/* min-height: 16px; */
+}
+
+div.modul div.func-cont.isi {
+	border: 1px solid;
+}
+
+
 div.daftar-statement div.cont {
 	padding: 4px;
 	border: 1px solid;

@@ -15,6 +15,7 @@ export class Menu {
 	}
 
 	render(): void {
+		/*
 		console.debug('render, state: ' + code.state.aktif);
 		this._cont.innerHTML = '';
 
@@ -51,6 +52,7 @@ export class Menu {
 
 			//ref
 		}
+		*/
 	}
 
 	stmtBuat(): HTMLButtonElement {
@@ -72,16 +74,16 @@ export class Menu {
 			console.debug('tombol hapus click');
 			code.stmt.hapus(code.stmt.aktif);
 			code.stmt.aktif = 0;
-			code.halDaftarStatement.renderDaftar();
+			// code.halDaftarStatement.renderDaftar();
 			code.state.aktif = State.ST_AWAL;
-			this.render();
+			// this.render();
 		})
 	}
 
 	stmtEditKembali(): HTMLButtonElement {
 		return Tombol.buat("<<<", () => {
 			code.state.aktif = State.ST_STMT_DIPILIH;
-			this.render();
+			// this.render();
 		})
 
 	}
